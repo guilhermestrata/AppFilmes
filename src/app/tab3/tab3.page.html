@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      ators
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list *ngIf="ListaAtores">
+
+    <ion-item-sliding *ngFor="let ator of ListaAtores">
+      <ion-item lines="full" (click)="exibirAtor(ator)">
+
+        <ion-thumbnail slot="start">
+          <img *ngIf="ator.foto" src="{{ator.foto}}" />
+          <ion-icon *ngIf="!ator.foto" name="videocam-off"></ion-icon>
+        </ion-thumbnail>
+
+        <ion-label class="ion-text-wrap">
+          <div>
+            <h1>{{ator.nome}}</h1>
+            <p>{{ator.idade}} anos</p>
+            <ion-badge [color]="ator.genero==='Female' ? 'tertiary' : ((ator.genero==='Male' ? 'secondary' : 'warning'))">
+              {{ator.genero}}
+            </ion-badge>
+            <ion-icon name="star" [color]="ator.favorito===true ? 'warning' : ('light')"></ion-icon>
+          </div>
+        </ion-label>
+
+        <ion-chip [color]="ator.creditos < 30 ? 'danger' : ((ator.creditos < 50 ? 'warning' : 'success'))"
+          outline>
+          <ion-label>{{ator.creditos}} creditos</ion-label>
+        </ion-chip>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary" (click)="exibirAlertaFavorito(ator)">
+          <ion-icon slot="icon-only" name="star"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
